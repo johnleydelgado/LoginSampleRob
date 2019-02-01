@@ -19,8 +19,10 @@ class ViewController: UIViewController {
         
         // Creat the subview
         let subview = UIView(frame: CGRect(x:0,y:0,width:240,height:135))
-        let imageV = UIImageView(frame: CGRect(x:10,y:1,width:240,height:40))
+        let imageV = UIImageView(frame: CGRect(x:60,y:1,width:140,height:40))
+      
         imageV.image = UIImage(named: "cc_logo")
+        
         subview.addSubview(imageV)
         
         let cc_logoLabel = UILabel(frame: CGRect(x:10,y:imageV.frame.maxY + 1,width:240,height:80))
@@ -96,9 +98,11 @@ class ViewController: UIViewController {
         //Button
         let btn = alert.addButton("Sign up") {
             print("Second button tapped")
+            self.SignUp()
         }
         let btn2 = alert.addButton("Forgot Password") {
             print("Second button tapped")
+            self.forgotPassword()
         }
 
         
@@ -126,16 +130,17 @@ class ViewController: UIViewController {
         
         
         let signUpLabel = UILabel(frame: CGRect(x:10,y:1,width:180,height:25))
-        signUpLabel.text = "Register here"
+        signUpLabel.text = "Dont have an account?"
         signUpLabel.font = signUpLabel.font.withSize(15)
         subview.addSubview(signUpLabel)
         
         let signUpBtn = SCLButton()
-        signUpBtn.setTitle("go to sign up", for: .normal)
+        signUpBtn.setTitle("Sign up", for: .normal)
         signUpBtn.setTitleColor(UIColor.blue, for: .normal)
-        signUpBtn.frame = CGRect(x:120,y:1,width:150,height:25)
+        signUpBtn.frame = CGRect(x:150,y:1,width:150,height:25)
         signUpBtn.addAction(for: .touchUpInside) {
             alert.hideView()
+            self.SignUp()
             print("Hello, Closure!")
         }
         subview.addSubview(signUpBtn)
@@ -166,8 +171,10 @@ class ViewController: UIViewController {
         //Button
         let btn = alert.addButton("Sign in") {
             print("Second button tapped")
+            self.SignIn()
         }
         let btn2 = alert.addButton("Forgot Password") {
+            self.forgotPassword()
             print("Second button tapped")
         }
         
@@ -180,6 +187,55 @@ class ViewController: UIViewController {
         btn2.backgroundColor = UIColor.red
         btn2.setTitleColor(.white, for: .normal)
         
+        
+    }
+    
+    func forgotPassword(){
+        let appearance = SCLAlertView.SCLAppearance(
+            kWindowWidth: 300, kWindowHeight: 360, showCloseButton: false, showCircularIcon: false, hideWhenBackgroundViewIsTapped: false, buttonsLayout: SCLAlertButtonLayout.horizontal
+        )
+        let alert = SCLAlertView(appearance: appearance)
+        
+        // Creat the subview
+        let subview = UIView(frame: CGRect(x:0,y:0,width:240,height:135))
+        
+        let signUpLabel = UILabel(frame: CGRect(x:10,y:1,width:180,height:25))
+        signUpLabel.text = "Please enter your email"
+        signUpLabel.font = signUpLabel.font.withSize(15)
+        subview.addSubview(signUpLabel)
+        
+        let emailTextField = UITextField(frame: CGRect(x:10,y:signUpLabel.frame.maxY + 10,width:250,height:40))
+        emailTextField.background = UIImage(named: "input-label")
+        emailTextField.placeholder = "Email"
+        emailTextField.layer.borderColor = UIColor.clear.cgColor
+        emailTextField.layer.borderWidth = 0
+        emailTextField.font = UIFont(name: "Avenir", size: 15)
+        emailTextField.textAlignment = NSTextAlignment.center
+        subview.addSubview(emailTextField)
+        
+        
+        alert.customSubview = subview
+        
+        //Button
+        
+        let btn = alert.addButton("Back to Sign in") {
+            print("Second button tapped")
+            self.SignIn()
+            
+        }
+        let btn2 = alert.addButton("Submit") {
+            print("Second button tapped")
+            self.forgotPassword()
+        }
+        
+        
+        alert.showWarning("Forgot Password", subTitle: "")
+        
+        //Changes of button
+        btn.backgroundColor = UIColor(red: 76/255, green: 143/255, blue: 222/255, alpha: 1.0)
+        btn.setTitleColor(.white, for: .normal)
+        btn2.backgroundColor = UIColor.red
+        btn2.setTitleColor(.white, for: .normal)
         
     }
     
